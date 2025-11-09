@@ -96,8 +96,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_xiaomi_sm8750
-TARGET_RECOVERY_DEVICE_MODULES := libinit_xiaomi_sm8750
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
 # TWRP specific build flags
@@ -176,4 +174,4 @@ TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko synaptics_tcm2.ko nxp-nci.ko stm_
 TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone1/temp" # CPU-0-0-0
 TW_BACKUP_EXCLUSIONS := /data/fonts
-TW_DEVICE_VERSION := $(TW_RELEASE_PRODUCT_NAME)-A15
+TW_DEVICE_VERSION := Xiaomi_SM8750

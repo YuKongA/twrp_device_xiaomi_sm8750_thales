@@ -49,6 +49,7 @@ on fs
 
 on boot
     setprop sys.usb.config adb
+    start variant-script
 
 on property:twrp.modules.loaded=true
     # Mount firmware
@@ -63,6 +64,8 @@ on property:twrp.modules.loaded=true
 
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start prepdecrypt.vendor
+    start touch_report
+    start vibratorfeature-hal-service
 
 on property:servicemanager.ready=true
     setprop sys.boot_completed 1
