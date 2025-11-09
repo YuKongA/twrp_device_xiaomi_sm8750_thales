@@ -1,6 +1,3 @@
-on init
-    start vibratorfeature-hal-service
-
 on late-fs
     # qcom-haptics
     chmod 0666 /sys/class/qcom-haptics/lra_calibration

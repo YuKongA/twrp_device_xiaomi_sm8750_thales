@@ -1,6 +1,3 @@
-on init
-    start touch_report
-
 on charger
     write /sys/class/touch/touch_dev/touch_doze_analysis 6
 
