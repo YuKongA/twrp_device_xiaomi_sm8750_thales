@@ -1,0 +1,6 @@
+service vendor.keymint-strongbox-nxp /odm/bin/hw/android.hardware.security.keymint-service.strongbox-nxp
+    class early_hal
+    user root
+    group root
+    capabilities WAKE_ALARM
+    seclabel u:r:recovery:s0

@@ -1,0 +1,6 @@
+service vendor.weaver_nxp /odm/bin/hw/android.hardware.weaver-service.nxp-qti
+    class hal
+    user root
+    group root
+    capabilities WAKE_ALARM
+    seclabel u:r:recovery:s0

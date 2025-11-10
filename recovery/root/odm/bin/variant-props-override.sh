@@ -37,6 +37,17 @@ case "$variant" in
     resetprop ro.odm.mm.vibrator.sys_path "/sys/class/qcom-haptics"
     resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
     ;;
+"onyx")
+    model="POCO F7"
+    resetprop vendor.use.nxp "true"
+    resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
+    resetprop ro.odm.mm.vibrator.device_type "agm"
+    resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
+    resetprop ro.odm.mm.vibrator.resonant_frequency "170"
+    resetprop ro.odm.mm.vibrator.slide_effect_protect_time "20"
+    resetprop ro.odm.mm.vibrator.sys_path "/sys/class/qcom-haptics"
+    resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
+    ;;
 *)
     echo "Unknown variant: $variant"
     exit 1
