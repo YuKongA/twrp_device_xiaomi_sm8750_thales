@@ -1,7 +1,7 @@
 on init
-    start vendor.weaver_hal_service
+    start weaver_hal_service.odm
 
-service odm.weaver_hal_service /odm/bin/hw/android.hardware.weaver-service.thales
+service weaver_hal_service.odm /odm/bin/hw/android.hardware.weaver-service.thales
     class hal
     user root
     group root drmrpc

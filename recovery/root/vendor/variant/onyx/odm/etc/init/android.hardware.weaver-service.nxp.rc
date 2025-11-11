@@ -1,4 +1,7 @@
-service vendor.weaver_nxp /odm/bin/hw/android.hardware.weaver-service.nxp-qti
+on init
+    start weaver_hal_service.odm
+
+service weaver_hal_service.odm /odm/bin/hw/android.hardware.weaver-service.nxp-qti
     class hal
     user root
     group root

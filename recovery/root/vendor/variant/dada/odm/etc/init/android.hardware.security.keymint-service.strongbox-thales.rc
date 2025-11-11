@@ -1,7 +1,7 @@
 on init
-    start vendor.keymint-strongbox
+    start keymint-strongbox.odm
 
-service odm.keymint-strongbox /odm/bin/hw/android.hardware.security.keymint-service.strongbox-thales
+service keymint-strongbox.odm /odm/bin/hw/android.hardware.security.keymint-service.strongbox-thales
     class early_hal
     user root
     group root

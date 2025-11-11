@@ -7,6 +7,6 @@ service touch_report.odm /odm/bin/touch_report
     group root uhid input
     capabilities SYS_NICE
     ioprio rt 4
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/sbin
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/odm/lib64::/sbin
     disabled
     seclabel u:r:recovery:s0

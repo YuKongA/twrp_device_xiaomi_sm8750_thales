@@ -50,7 +50,6 @@ case "$variant" in
 
     "onyx")
         model="POCO F7"
-        resetprop variant.use.nxp "true"
         resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
         set_vibrator_props "170" "20" "/sys/class/qcom-haptics"
         ;;
@@ -69,7 +68,6 @@ esac
 #-------------------------------------------------
 # Common configuration
 #-------------------------------------------------
-setprop sys.usb.config "adb"
 echo "$model" > /config/usb_gadget/g1/strings/0x409/product
 
 #-------------------------------------------------
