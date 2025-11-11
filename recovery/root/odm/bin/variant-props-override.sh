@@ -28,56 +28,53 @@ set_vibrator_props() {
 # Variant-specific configuration
 #-------------------------------------------------
 case "$variant" in
-    "dada")
-        model="$base_name"
-        resetprop vendor.display.enable_spr "1"
-        set_vibrator_props "170" "35" "/sys/class/qcom-haptics" "agm"
-        ;;
+"dada")
+    model="$base_name"
+    resetprop vendor.display.enable_spr "1"
+    set_vibrator_props "170" "35" "/sys/class/qcom-haptics" "agm"
+    ;;
 
-    "haotian")
-        model="$base_name Pro"
-        resetprop vendor.display.enable_spr "1"
-        resetprop ro.odm.mm.vibrator.cirrus "true"
-        resetprop ro.odm.mm.vibrator.lowPowerMode "true"
-        set_vibrator_props "130" "20" "/sys/bus/i2c/drivers/cs40l26/0-0043" "agm"
-        ;;
+"haotian")
+    model="$base_name Pro"
+    resetprop vendor.display.enable_spr "1"
+    resetprop ro.odm.mm.vibrator.cirrus "true"
+    resetprop ro.odm.mm.vibrator.lowPowerMode "true"
+    set_vibrator_props "130" "20" "/sys/bus/i2c/drivers/cs40l26/0-0043" "agm"
+    ;;
 
-    "xuanyuan")
-        model="$base_name Ultra"
-        resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
-        set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
-        ;;
+"xuanyuan")
+    model="$base_name Ultra"
+    resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
+    set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
+    ;;
 
-    "miro")
-        model="Readmi K80 Pro"
-        resetprop ro.odm.mm.vibrator.lowPowerMode "true"
-        set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
-        ;;
+"miro")
+    model="Readmi K80 Pro"
+    resetprop ro.odm.mm.vibrator.lowPowerMode "true"
+    set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
+    ;;
 
-    *)
+"onyx")
+    model="POCO F7"
+    resetprop ro.odm.mm.vibrator.si_sys_path "/sys/bus/i2c/drivers/sih_haptic_688X/5-006b"
+    set_vibrator_props "170" "20" "/sys/bus/i2c/drivers/awinic_haptic/5-005a" "ff"
+    ;;
 
-    "onyx")
-        model="POCO F7"
-        resetprop ro.odm.mm.vibrator.si_sys_path "/sys/bus/i2c/drivers/sih_haptic_688X/5-006b"
-        set_vibrator_props "170" "20" "/sys/bus/i2c/drivers/awinic_haptic/5-005a" "ff"
-        ;;
-
-    *)
-
-        #-----------------------------------------
-        # Default configuration
-        #-----------------------------------------
-        log "Unknown variant: $variant, applying default configuration (SM8750)"
-        variant="SM8750"
-        model="SM8750"
-        set_vibrator_props "170" "35" "/sys/class/qcom-haptics"
-        ;;
+*)
+    #-----------------------------------------
+    # Default configuration
+    #-----------------------------------------
+    log "Unknown variant: $variant, applying default configuration (SM8750)"
+    variant="SM8750"
+    model="SM8750"
+    set_vibrator_props "170" "35" "/sys/class/qcom-haptics"
+    ;;
 esac
 
 #-------------------------------------------------
 # Common configuration
 #-------------------------------------------------
-echo "$model" > /config/usb_gadget/g1/strings/0x409/product
+echo "$model" >/config/usb_gadget/g1/strings/0x409/product
 
 #-------------------------------------------------
 # Set product & model properties
