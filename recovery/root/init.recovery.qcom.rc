@@ -33,6 +33,10 @@ on early-fs
     write /proc/sys/walt/sched_lib_name "recovery,magiskboot,Updater,updater,update_engine_sideload"
     write /proc/sys/walt/sched_lib_mask_force 255
 
+on post-fs
+    start variant-props-override.odm
+    start variant-files-move.odm
+
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -49,8 +53,6 @@ on fs
 
 on boot
     setprop sys.usb.config adb
-    start variant-props-override.odm
-    start variant-files_moved.odm
 
 on property:twrp.modules.loaded=true
     # Mount firmware
