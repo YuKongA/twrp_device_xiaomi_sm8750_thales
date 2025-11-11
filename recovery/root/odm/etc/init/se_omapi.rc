@@ -1,7 +1,7 @@
 on late-init
     start se_omapi.odm
 
-service se_omapi.odm /system/bin/se_omapi
+service se_omapi.odm /odm/bin/se_omapi
     class hal
     user root
     group root
