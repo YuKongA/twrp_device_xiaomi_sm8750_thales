@@ -69,7 +69,7 @@ esac
 #-------------------------------------------------
 # Common configuration
 #-------------------------------------------------
-resetprop sys.usb.config "adb"
+setprop sys.usb.config "adb"
 echo "$model" > /config/usb_gadget/g1/strings/0x409/product
 
 #-------------------------------------------------
