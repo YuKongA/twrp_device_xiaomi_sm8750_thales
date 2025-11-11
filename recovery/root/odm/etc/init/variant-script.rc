@@ -1,4 +1,4 @@
-service variant-files-move.odm /odm/bin/variant-files-move.sh
+service variant-files-copy.odm /odm/bin/variant-files-copy.sh
     user root
     group root
     disabled

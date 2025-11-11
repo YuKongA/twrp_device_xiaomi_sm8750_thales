@@ -47,9 +47,9 @@ on fs
     mount none /tmp/persist /mnt/vendor/persist bind rec
     install_keyring
 
-on early-boot
+on post-fs
     start variant-props-override.odm
-    start variant-files-move.odm
+    start variant-files-copy.odm
 
 on boot
     setprop sys.usb.config adb
@@ -68,7 +68,7 @@ on property:twrp.modules.loaded=true
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start prepdecrypt.odm
 
-on property:variant.files_moved=1
+on property:variant.files_copied=1
     start vibratorfeature-hal-service.odm
     start touch_report.odm
     start weaver_hal_service.odm

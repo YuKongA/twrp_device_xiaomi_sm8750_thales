@@ -3,10 +3,10 @@
 
 variant=$(getprop ro.boot.hardware.sku)
 
-chmod -R 755 /odm/variant/$variant/odm/bin/*
-mv /odm/variant/$variant/odm/* /odm
+cp -rf /odm/variant/$variant/odm/* /odm
+chmod -R 755 /odm/bin/*
 
-setprop variant.files_moved "1"
+setprop variant.files_copied "1"
 
 echo "$variant variant files copied." >/tmp/recovery.log
 
