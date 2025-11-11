@@ -3,9 +3,7 @@
 
 variant=$(getprop ro.boot.hardware.sku)
 
-cp -rf /vendor/variant/$variant/vendor/* /vendor
-cp -rf /vendor/variant/$variant/odm/* /odm
-chmod -R 755 /vendor/bin/*
+cp -rf /odm/variant/$variant/odm/* /odm
 chmod -R 755 /odm/bin/*
 
 resetprop variant.files_copied "1"
