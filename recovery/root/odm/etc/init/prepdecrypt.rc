@@ -1,4 +1,4 @@
-service prepdecrypt.odm /odm/bin/prepdecrypt.sh
+service odm.prepdecrypt /odm/bin/prepdecrypt.sh
     user root
     group root
     disabled

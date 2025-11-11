@@ -1,11 +1,4 @@
-service variant-files-copy.odm /odm/bin/variant-files-copy.sh
-    user root
-    group root
-    disabled
-    oneshot
-    seclabel u:r:recovery:s0
-
-service variant-props-override.odm /odm/bin/variant-props-override.sh
+service odm.variant-script /odm/bin/variant-script.sh
     user root
     group root
     disabled

@@ -1,4 +1,4 @@
-service keymint-strongbox.odm /odm/bin/hw/android.hardware.security.keymint-service.strongbox
+service odm.keymint-strongbox /odm/bin/hw/android.hardware.security.keymint-service.strongbox
     class early_hal
     user root
     group root

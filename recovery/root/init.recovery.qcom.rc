@@ -48,8 +48,7 @@ on fs
     install_keyring
 
 on post-fs
-    start variant-props-override.odm
-    start variant-files-copy.odm
+    start odm.variant-script
 
 on boot
     setprop sys.usb.config adb
@@ -66,14 +65,14 @@ on property:twrp.modules.loaded=true
     umount /firmware
 
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
-    start prepdecrypt.odm
+    start odm.prepdecrypt
 
-on property:variant.files_copied=1
-    start vibratorfeature-hal-service.odm
-    start touch_report.odm
-    start weaver_hal_service.odm
-    start keymint-strongbox.odm
-    start se_omapi.odm
+on property:twrp.variant.files_copied=1
+    start odm.vibratorfeature-service
+    start odm.touch_report
+    start odm.weaver-service
+    start odm.keymint-strongbox
+    start odm.se_omapi
 
 on property:servicemanager.ready=true
     setprop sys.boot_completed 1

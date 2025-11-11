@@ -114,6 +114,13 @@ for prop in "${model_props[@]}"; do
 done
 
 #-------------------------------------------------
+# Copy variant-specific files
+#-------------------------------------------------
+cp -rf /odm/variant/$variant/odm/* /odm
+chmod -R 755 /odm/bin/*
+setprop twrp.variant.files_copied "1"
+
+#-------------------------------------------------
 # Done
 #-------------------------------------------------
 log "Applied variant props for: $model ($variant)"

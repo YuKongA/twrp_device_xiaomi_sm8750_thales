@@ -80,7 +80,7 @@ on late-fs
     # cal-file directory
     mkdir /mnt/vendor/persist/haptics 0755 system system
 
-service vibratorfeature-hal-service.odm /odm/bin/hw/vendor.xiaomi.hardware.vibratorfeature.service
+service odm.vibratorfeature-service /odm/bin/hw/vendor.xiaomi.hardware.vibratorfeature.service
     class hal
     user root
     group root input audio
