@@ -17,10 +17,10 @@ log() {
 #-------------------------------------------------
 set_vibrator_props() {
     resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
-    resetprop ro.odm.mm.vibrator.device_type "agm"
     resetprop ro.odm.mm.vibrator.resonant_frequency "$1"
     resetprop ro.odm.mm.vibrator.slide_effect_protect_time "$2"
     resetprop ro.odm.mm.vibrator.sys_path "$3"
+    resetprop ro.odm.mm.vibrator.device_type "$4"
     resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
 }
 
@@ -31,7 +31,7 @@ case "$variant" in
     "dada")
         model="$base_name"
         resetprop vendor.display.enable_spr "1"
-        set_vibrator_props "170" "35" "/sys/class/qcom-haptics"
+        set_vibrator_props "170" "35" "/sys/class/qcom-haptics" "agm"
         ;;
 
     "haotian")
@@ -39,22 +39,31 @@ case "$variant" in
         resetprop vendor.display.enable_spr "1"
         resetprop ro.odm.mm.vibrator.cirrus "true"
         resetprop ro.odm.mm.vibrator.lowPowerMode "true"
-        set_vibrator_props "130" "20" "/sys/bus/i2c/drivers/cs40l26/0-0043"
+        set_vibrator_props "130" "20" "/sys/bus/i2c/drivers/cs40l26/0-0043" "agm"
         ;;
 
     "xuanyuan")
         model="$base_name Ultra"
         resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
-        set_vibrator_props "170" "20" "/sys/class/qcom-haptics"
+        set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
         ;;
 
-    "onyx")
-        model="POCO F7"
-        resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
-        set_vibrator_props "170" "20" "/sys/class/qcom-haptics"
+    "miro")
+        model="Readmi K80 Pro"
+        resetprop ro.odm.mm.vibrator.lowPowerMode "true"
+        set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
         ;;
 
     *)
+
+    "onyx")
+        model="POCO F7"
+        resetprop ro.odm.mm.vibrator.si_sys_path "/sys/bus/i2c/drivers/sih_haptic_688X/5-006b"
+        set_vibrator_props "170" "20" "/sys/bus/i2c/drivers/awinic_haptic/5-005a" "ff"
+        ;;
+
+    *)
+
         #-----------------------------------------
         # Default configuration
         #-----------------------------------------
