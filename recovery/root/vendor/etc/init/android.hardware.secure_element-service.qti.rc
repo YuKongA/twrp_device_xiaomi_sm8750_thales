@@ -5,5 +5,5 @@ service vendor.secure_element /vendor/bin/hw/android.hardware.secure_element-ser
     class hal
     user root
     group nfc root
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/odm/lib64::/sbin
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/odm/lib64:/sbin
     seclabel u:r:recovery:s0
