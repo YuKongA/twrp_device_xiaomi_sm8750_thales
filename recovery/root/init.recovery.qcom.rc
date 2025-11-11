@@ -69,5 +69,13 @@ on property:variant.files_copied=1
     start vibratorfeature-hal-service.odm
     start touch_report.odm
 
+on property:variant.files_copied=1 && property:variant.use.nxp=true
+    stop se_omapi
+    stop vendor.keymint-strongbox
+    stop vendor.weaver_hal_service
+    start se_omapi
+    start vendor.keymint-strongbox-nxp
+    start vendor.weaver_nxp
+
 on property:servicemanager.ready=true
     setprop sys.boot_completed 1

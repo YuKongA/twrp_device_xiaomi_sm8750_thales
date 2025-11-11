@@ -1,66 +1,80 @@
 #!/system/bin/sh
-# Auto-set device props based on hardware SKU
+#=================================================
+# Auto-set device properties based on hardware SKU
+#=================================================
+set -e
 
 variant=$(getprop ro.boot.hardware.sku)
 base_name="Xiaomi 15"
+log_file="/tmp/recovery.log"
 
+log() {
+    echo "variant-props-override.sh: $1" | tee -a "$log_file"
+}
+
+#-------------------------------------------------
+# Helper: set multiple vibrator-related properties
+#-------------------------------------------------
+set_vibrator_props() {
+    resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
+    resetprop ro.odm.mm.vibrator.device_type "agm"
+    resetprop ro.odm.mm.vibrator.resonant_frequency "$1"
+    resetprop ro.odm.mm.vibrator.slide_effect_protect_time "$2"
+    resetprop ro.odm.mm.vibrator.sys_path "$3"
+    resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
+}
+
+#-------------------------------------------------
+# Variant-specific configuration
+#-------------------------------------------------
 case "$variant" in
-"dada")
-    model="$base_name"
-    resetprop vendor.display.enable_spr "1"
-    resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
-    resetprop ro.odm.mm.vibrator.device_type "agm"
-    resetprop ro.odm.mm.vibrator.resonant_frequency "170"
-    resetprop ro.odm.mm.vibrator.slide_effect_protect_time "35"
-    resetprop ro.odm.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    ;;
-"haotian")
-    model="$base_name Pro"
-    resetprop vendor.display.enable_spr "1"
-    resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
-    resetprop ro.odm.mm.vibrator.cirrus "true"
-    resetprop ro.odm.mm.vibrator.device_type "agm"
-    resetprop ro.odm.mm.vibrator.lowPowerMode "true"
-    resetprop ro.odm.mm.vibrator.resonant_frequency "130"
-    resetprop ro.odm.mm.vibrator.slide_effect_protect_time "20"
-    resetprop ro.odm.mm.vibrator.sys_path "/sys/bus/i2c/drivers/cs40l26/0-0043"
-    resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    ;;
-"xuanyuan")
-    model="$base_name Ultra"
-    resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
-    resetprop ro.odm.mm.vibrator.device_type "agm"
-    resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
-    resetprop ro.odm.mm.vibrator.resonant_frequency "170"
-    resetprop ro.odm.mm.vibrator.slide_effect_protect_time "20"
-    resetprop ro.odm.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    ;;
-"onyx")
-    model="POCO F7"
-    resetprop vendor.use.nxp "true"
-    resetprop ro.odm.mm.vibrator.audio_haptic_support "true"
-    resetprop ro.odm.mm.vibrator.device_type "agm"
-    resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
-    resetprop ro.odm.mm.vibrator.resonant_frequency "170"
-    resetprop ro.odm.mm.vibrator.slide_effect_protect_time "20"
-    resetprop ro.odm.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    resetprop ro.vendor.mm.vibrator.sys_path "/sys/class/qcom-haptics"
-    ;;
-*)
-    echo "Unknown variant: $variant"
-    exit 1
-    ;;
+    "dada")
+        model="$base_name"
+        resetprop vendor.display.enable_spr "1"
+        set_vibrator_props "170" "35" "/sys/class/qcom-haptics"
+        ;;
+
+    "haotian")
+        model="$base_name Pro"
+        resetprop vendor.display.enable_spr "1"
+        resetprop ro.odm.mm.vibrator.cirrus "true"
+        resetprop ro.odm.mm.vibrator.lowPowerMode "true"
+        set_vibrator_props "130" "20" "/sys/bus/i2c/drivers/cs40l26/0-0043"
+        ;;
+
+    "xuanyuan")
+        model="$base_name Ultra"
+        resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
+        set_vibrator_props "170" "20" "/sys/class/qcom-haptics"
+        ;;
+
+    "onyx")
+        model="POCO F7"
+        resetprop variant.use.nxp "true"
+        resetprop ro.odm.mm.vibrator.he1.0 "mihaptic"
+        set_vibrator_props "170" "20" "/sys/class/qcom-haptics"
+        ;;
+
+    *)
+        #-----------------------------------------
+        # Default configuration
+        #-----------------------------------------
+        log "Unknown variant: $variant, applying default configuration (SM8750)"
+        variant="SM8750"
+        model="SM8750"
+        set_vibrator_props "170" "35" "/sys/class/qcom-haptics"
+        ;;
 esac
 
-# Set USB config
+#-------------------------------------------------
+# Common configuration
+#-------------------------------------------------
 resetprop sys.usb.config "adb"
+echo "$model" > /config/usb_gadget/g1/strings/0x409/product
 
-# Set USB name
-echo "$model" >/config/usb_gadget/g1/strings/0x409/product
-
-# device
+#-------------------------------------------------
+# Set product & model properties
+#-------------------------------------------------
 device_props=(
     ro.build.product
     ro.product.device
@@ -78,12 +92,6 @@ device_props=(
     ro.product.system.name
 )
 
-# Set device
-for prop in "${device_props[@]}"; do
-    resetprop "$prop" "$variant"
-done
-
-# model
 model_props=(
     ro.product.model
     ro.product.odm.model
@@ -93,11 +101,16 @@ model_props=(
     ro.product.system.model
 )
 
-# Set model
+for prop in "${device_props[@]}"; do
+    resetprop "$prop" "$variant"
+done
+
 for prop in "${model_props[@]}"; do
     resetprop "$prop" "$model"
 done
 
-echo "Variant props applied for $model ($variant)." >/tmp/recovery.log
-
+#-------------------------------------------------
+# Done
+#-------------------------------------------------
+log "Applied variant props for: $model ($variant)"
 exit 0
