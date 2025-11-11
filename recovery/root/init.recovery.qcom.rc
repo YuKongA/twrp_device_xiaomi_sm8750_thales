@@ -66,7 +66,7 @@ on property:twrp.modules.loaded=true
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start prepdecrypt.odm
 
-on property:variant.files_copied=1
+on property:variant.files_moved=1
     start vibratorfeature-hal-service.odm
     start touch_report.odm
     start weaver_hal_service.odm
