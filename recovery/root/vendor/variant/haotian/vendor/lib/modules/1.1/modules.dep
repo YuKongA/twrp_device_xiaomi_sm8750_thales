@@ -1,5 +1,0 @@
-/vendor/lib/modules/synaptics_tcm2.ko: /vendor/lib/modules/gh_irq_lend.ko /vendor/lib/modules/xiaomi_touch.ko /vendor/lib/modules/panel_event_notifier.ko /vendor/lib/modules/gh_mem_notifier.ko
-/vendor/lib/modules/gh_irq_lend.ko:
-/vendor/lib/modules/panel_event_notifier.ko:
-/vendor/lib/modules/gh_mem_notifier.ko:
-/vendor/lib/modules/xiaomi_touch.ko: /vendor/lib/modules/panel_event_notifier.ko
