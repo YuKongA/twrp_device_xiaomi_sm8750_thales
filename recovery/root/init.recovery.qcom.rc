@@ -50,7 +50,7 @@ on fs
 on boot
     setprop sys.usb.config adb
     start variant-props-override.odm
-    start variant-files-copy.odm
+    start variant-files_moved.odm
 
 on property:twrp.modules.loaded=true
     # Mount firmware
