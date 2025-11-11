@@ -1,6 +1,3 @@
-on boot
-    start se_omapi.odm
-
 service se_omapi.odm /odm/bin/se_omapi
     class hal
     user root

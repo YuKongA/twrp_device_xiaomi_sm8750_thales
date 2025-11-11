@@ -1,6 +1,3 @@
-on boot
-    start weaver_hal_service.odm
-
 service weaver_hal_service.odm /odm/bin/hw/android.hardware.weaver-service
     class hal
     user root

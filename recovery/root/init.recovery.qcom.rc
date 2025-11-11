@@ -67,6 +67,9 @@ on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=tru
     start prepdecrypt.odm
 
 on property:variant.files_copied=1
+    start weaver_hal_service.odm
+    start keymint-strongbox.odm
+    start se_omapi.odm
     start vibratorfeature-hal-service.odm
     start touch_report.odm
 
