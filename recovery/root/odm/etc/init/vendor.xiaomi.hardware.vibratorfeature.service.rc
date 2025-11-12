@@ -85,7 +85,7 @@ service odm.vibratorfeature-service /odm/bin/hw/vendor.xiaomi.hardware.vibratorf
     user root
     group root input audio
     onrestart restart vibratorfeature
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/odm/lib64:/sbin
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/odm/lib64:/system/lib64:/sbin
     disabled
     seclabel u:r:recovery:s0
 

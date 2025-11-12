@@ -20,5 +20,5 @@ service vendor.ssgtzd /vendor/bin/ssgtzd
     disabled
     socket ssgtzd stream 0660 system oem_2912
     socket ssgtzd_opener stream 0660 system system
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/odm/lib64:/sbin
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/odm/lib64:/system/lib64:/sbin
     seclabel u:r:recovery:s0
