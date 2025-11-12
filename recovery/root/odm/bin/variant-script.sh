@@ -55,7 +55,7 @@ case "$variant" in
     log "Unknown variant: $variant, applying default configuration (SM8750)"
     variant="SM8750"
     model="SM8750"
-    set_vibrator_props "170" "35" "/sys/class/qcom-haptics"
+    set_vibrator_props "170" "35" "/sys/class/qcom-haptics" "agm"
     ;;
 esac
 
