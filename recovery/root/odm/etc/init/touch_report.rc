@@ -1,7 +1,7 @@
 on charger
     write /sys/class/touch/touch_dev/touch_doze_analysis 6
 
-service touch_report.odm /odm/bin/touch_report
+service odm.touch_report /odm/bin/touch_report
     class hal
     user root
     group root uhid input
