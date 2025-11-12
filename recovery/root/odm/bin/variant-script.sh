@@ -48,18 +48,6 @@ case "$variant" in
     set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
     ;;
 
-"miro")
-    model="Readmi K80 Pro"
-    resetprop ro.odm.mm.vibrator.lowPowerMode "true"
-    set_vibrator_props "170" "20" "/sys/class/qcom-haptics" "agm"
-    ;;
-
-"onyx")
-    model="POCO F7"
-    resetprop ro.odm.mm.vibrator.si_sys_path "/sys/bus/i2c/drivers/sih_haptic_688X/5-006b"
-    set_vibrator_props "170" "20" "/sys/bus/i2c/drivers/awinic_haptic/5-005a" "ff"
-    ;;
-
 *)
     #-----------------------------------------
     # Default configuration
