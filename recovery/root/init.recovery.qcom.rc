@@ -25,6 +25,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import /init.recovery.wifi.rc
+
 on init
     start vendor.boot-qti
     setprop prepdecrypt.setpatch true

@@ -68,6 +68,7 @@ import /vendor/etc/fw_dir.ueventd.qcom.rc
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
 # firmware_directories /vendor/firmware_mnt/image/ /vendor/modem_firmware/image/
+firmware_directories /mnt/vendor/persist/ /vendor/etc/wifi/ /vendor/firmware_mnt/image/
 
 subsystem dma_heap
     devname uevent_devpath
