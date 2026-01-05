@@ -8,3 +8,8 @@ vendor.gatekeeper.is_security_level_spu=0
 
 # Battery Property
 ro.charger.enable_suspend=1
+
+# USB
+vendor.usb.configfs=1
+vendor.usb.rps_mask=0
+vendor.usb.uvc.function.init=1

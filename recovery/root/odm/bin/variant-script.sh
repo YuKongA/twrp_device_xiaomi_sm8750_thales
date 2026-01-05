@@ -72,6 +72,8 @@ esac
 # Common configuration
 #-------------------------------------------------
 echo "$model" >/config/usb_gadget/g1/strings/0x409/product
+resetprop vendor.usb.product_string "$model"
+mkdir -p /usbotg
 
 #-------------------------------------------------
 # Set product & model properties

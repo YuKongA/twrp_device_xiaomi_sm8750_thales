@@ -56,3 +56,4 @@ mi_ext                                                  /mi_ext                e
 /dev/block/bootdevice/by-name/misc                      /misc                  emmc    defaults                                             defaults
 /dev/block/bootdevice/by-name/persist                   /persist               ext4    noatime,nosuid,nodev,barrier=1                       wait
 /dev/block/bootdevice/by-name/rescue                    /cache                 ext4    noatime,nosuid,nodev,barrier=1                       wait
+/devices/platform/soc/a600000.ssusb/*.dwc3/xhci-hcd.*.auto*   /usbotg          auto    nosuid,nodev                                         wait,voldmanaged=usbotg:auto
