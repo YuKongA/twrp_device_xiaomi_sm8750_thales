@@ -64,7 +64,8 @@ on property:twrp.modules.loaded=true
     write /sys/kernel/boot_adsp/ssr 1
     wait /sys/class/power_supply/battery
     start vendor.health-default
-    umount /firmware
+    umount /vendor
+    symlink /firmware /vendor/firmware_mnt
 
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start odm.prepdecrypt

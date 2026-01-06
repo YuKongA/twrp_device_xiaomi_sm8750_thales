@@ -140,18 +140,18 @@ service cp-wifi-ko /system/bin/cp-wifi-ko.sh
 # WiFi服务启动触发器，ADB中使用 setprop survival.start.service true 触发
 on property:survival.start.service=true
     write /dev/kmsg "[jasonwifi][service] Starting Qualcomm services"
-    start vendor.pd_mapper
-    write /dev/kmsg "[jasonwifi][service] vendor.pd_mapper started"
-    start vendor.per_proxy
-    write /dev/kmsg "[jasonwifi][service] vendor.per_proxy started"
-    start vendor.per_mgr
-    write /dev/kmsg "[jasonwifi][service] vendor.per_mgr started"
+#    start vendor.pd_mapper
+#    write /dev/kmsg "[jasonwifi][service] vendor.pd_mapper started"
+#    start vendor.per_proxy
+#    write /dev/kmsg "[jasonwifi][service] vendor.per_proxy started"
+#    start vendor.per_mgr
+#    write /dev/kmsg "[jasonwifi][service] vendor.per_mgr started"
     start vendor.qrtr-ns
     write /dev/kmsg "[jasonwifi][service] vendor.qrtr-ns started"
     start vendor.rmt_storage
     write /dev/kmsg "[jasonwifi][service] vendor.rmt_storage started"
-    start vendor.tftp_server
-    write /dev/kmsg "[jasonwifi][service] vendor.tftp_server started"
+#    start vendor.tftp_server
+#    write /dev/kmsg "[jasonwifi][service] vendor.tftp_server started"
     write /dev/kmsg "[jasonwifi][service] Qualcomm services started successfuly!"
 
 on early-boot
