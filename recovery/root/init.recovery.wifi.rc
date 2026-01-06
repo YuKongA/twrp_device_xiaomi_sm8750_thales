@@ -152,7 +152,7 @@ on property:survival.start.service=true
     write /dev/kmsg "[jasonwifi][service] vendor.rmt_storage started"
 #    start vendor.tftp_server
 #    write /dev/kmsg "[jasonwifi][service] vendor.tftp_server started"
-    write /dev/kmsg "[jasonwifi][service] Qualcomm services started successfuly!"
+    write /dev/kmsg "[jasonwifi][service] Qualcomm services started successfully!"
 
 on early-boot
     # 小米特有的 WiFi 早期初始化设置（参考 init.vendor.wlan.rc）
