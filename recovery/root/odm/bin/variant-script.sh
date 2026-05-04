@@ -5,7 +5,7 @@
 set -e
 
 variant=$(getprop ro.boot.hardware.sku)
-base_name="Xiaomi 15"
+base_name="Xiaomi"
 log_file="/tmp/recovery.log"
 
 log() {
@@ -29,7 +29,7 @@ set_vibrator_props() {
 #-------------------------------------------------
 case "$variant" in
 "dada")
-    model="$base_name"
+    model="$base_name 15"
     resetprop ro.twrp.device_version "Xiaomi_15"
     resetprop ro.twrp.y_offset "111"
     resetprop ro.twrp.h_offset "-111"
@@ -38,7 +38,7 @@ case "$variant" in
     ;;
 
 "haotian")
-    model="$base_name Pro"
+    model="$base_name 15 Pro"
     resetprop ro.twrp.device_version "Xiaomi_15_Pro"
     resetprop ro.twrp.y_offset "116"
     resetprop ro.twrp.h_offset "-116"
@@ -49,7 +49,7 @@ case "$variant" in
     ;;
 
 "xuanyuan")
-    model="$base_name Ultra"
+    model="$base_name 15 Ultra"
     resetprop ro.twrp.device_version "Xiaomi_15_Ultra"
     resetprop ro.twrp.y_offset "116"
     resetprop ro.twrp.h_offset "-116"

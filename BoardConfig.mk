@@ -17,8 +17,8 @@ BUILD_BROKEN_PLUGIN_VALIDATION := soong-libaosprecovery_defaults soong-libguitwr
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+#TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := oryon
 
 # Power
 ENABLE_CPUSETS := true
@@ -109,13 +109,16 @@ TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 BOARD_USES_QCOM_FBE_DECRYPTION := true
 BOARD_USES_METADATA_PARTITION := true
-TW_INCLUDE_OMAPI := true
+TARGET_KEYMASTER_VERSION := 4.1
+TW_USE_KEYMASTER_FOR_FBE_DECRYPT := true
+TW_KEYMASTER_UFS_PORT := true
 TW_USE_FSCRYPT_POLICY := 2
 PLATFORM_VERSION := 99.87.36
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+TW_INCLUDE_OMAPI := true
 
 # Tool
 TW_INCLUDE_7ZA := true
@@ -123,6 +126,8 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
 TW_ENABLE_ALL_PARTITION_TOOLS := true
+TW_INCLUDE_ZSTD := true
+TW_NO_NETWORK := true
 
 # F2FS
 TW_ENABLE_FS_COMPRESSION := false
@@ -157,6 +162,7 @@ TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_MAX_BRIGHTNESS := 2047
 TW_EXTRA_LANGUAGES := true
 TW_DEFAULT_BRIGHTNESS := 250
+TARGET_RECOVERY_QCOM_RTC_FIX            := true
 TW_EXCLUDE_APEX := true
 TW_HAS_EDL_MODE := false
 TW_SUPPORT_INPUT_AIDL_HAPTICS := true
@@ -164,7 +170,7 @@ TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
 TW_SUPPORT_INPUT_AIDL_HAPTICS_FIX_OFF := true
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko rproc_qcom_common.ko q6_dlkm.ko qcom_q6v5.ko qcom_q6v5_pas.ko qcom_sysmon.ko synaptics_tcm2.ko nxp-nci.ko stm_st54se_gpio.ko stm_nfc_i2c.ko qcom-hv-haptics.ko cs40l26-i2c.ko"
+TW_LOAD_VENDOR_MODULES := "q6_dlkm.ko adsp_loader_dlkm.ko synaptics_tcm2.ko qcom-hv-haptics.ko cs40l26-i2c.ko nxp-nci.ko stm_st54se_gpio.ko stm_nfc_i2c.ko"
 TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
 TW_LOAD_PREBUILT_MODULES_AT_FIRST := true
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone1/temp" # CPU-0-0-0

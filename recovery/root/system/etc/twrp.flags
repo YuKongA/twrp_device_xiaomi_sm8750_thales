@@ -5,10 +5,14 @@
 # mount point          fstype  device                                     device2                 flags
 
 # Logical partitions
-/mi_ext                ext4    mi_ext                                                             flags=display="Mi_EXT"
-/system_ext            ext4    system_ext                                                         flags=display="System_EXT"
-/system_dlkm           ext4    system_dlkm                                                        flags=display="System_DLKM"
-/vendor_dlkm           ext4    vendor_dlkm                                                        flags=display="Vendor_DLKM"
+/system                auto    system                                                             flags=display="system"
+/system_ext            auto    system_ext                                                         flags=display="system_ext"
+/product               auto    product                                                            flags=display="product"
+/vendor                auto    vendor                                                             flags=display="vendor"
+/vendor_dlkm           auto    vendor_dlkm                                                        flags=display="vendor_dlkm"
+/system_dlkm           auto    system_dlkm                                                        flags=display="system_dlkm"
+/odm                   auto    odm                                                                flags=display="odm"
+/mi_ext                auto    mi_ext                                                             flags=display="mi_ext"
 
 # Metadata/Cache/Misc Properties
 /metadata              f2fs    /dev/block/bootdevice/by-name/metadata                             flags=display="Metadata";backup=1;wrappedkey

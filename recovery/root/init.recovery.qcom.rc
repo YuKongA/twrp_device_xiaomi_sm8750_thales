@@ -17,7 +17,7 @@
 # IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 # NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
 # CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, THE
 # PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 # OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
@@ -25,28 +25,15 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import /init.recovery.wifi.rc
-
 on init
     start vendor.boot-qti
-    setprop prepdecrypt.setpatch true
-
-on early-fs
-    write /proc/sys/walt/sched_lib_name "recovery,magiskboot,Updater,updater,update_engine_sideload"
-    write /proc/sys/walt/sched_lib_mask_force 255
 
 on fs
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    wait /dev/block/platform/soc/${ro.boot.bootdevice} 2000
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
-    chmod 0660 /dev/qseecom
-    chown system drmrpc /dev/qseecom
-    chmod 0664 /dev/ion
-    chown system system /dev/ion
     mkdir /mnt/vendor 0775 shell system
     mkdir /mnt/vendor/persist 0775 shell system
-    mkdir /tmp/persist 0775 shell system
-    mount none /tmp/persist /mnt/vendor/persist bind rec
+
     install_keyring
 
 on post-fs
@@ -54,27 +41,19 @@ on post-fs
 
 on boot
     setprop sys.usb.config adb
+    setprop sys.boot_completed 1
 
 on property:twrp.modules.loaded=true
     # Mount firmware
     mkdir /firmware
+    wait /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} 1500
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
-    # Load ADSP firmware for PMIC
-    wait /sys/kernel/boot_adsp/ssr
+    wait /sys/kernel/boot_adsp/ssr 1200
     write /sys/kernel/boot_adsp/ssr 1
-    wait /sys/class/power_supply/battery
+    wait /sys/class/power_supply/battery 1000
     start vendor.health-default
     umount /firmware
-
-on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
-    start odm.prepdecrypt
 
 on property:twrp.variant.files_copied=1
     start odm.vibratorfeature-service
     start odm.touch_report
-    start odm.weaver-service
-    start odm.keymint-strongbox
-    start odm.se_omapi
-
-on property:servicemanager.ready=true
-    setprop sys.boot_completed 1
