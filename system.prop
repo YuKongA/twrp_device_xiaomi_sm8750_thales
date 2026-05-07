@@ -13,3 +13,4 @@ ro.charger.enable_suspend=1
 vendor.usb.configfs=1
 vendor.usb.rps_mask=0
 vendor.usb.uvc.function.init=1
+service.adb.tcp.port=5555
