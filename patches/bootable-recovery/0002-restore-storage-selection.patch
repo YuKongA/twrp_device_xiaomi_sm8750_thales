@@ -1,0 +1,36 @@
+diff --git a/gui/theme/common/portrait.xml b/gui/theme/common/portrait.xml
+index 30b4df0..1eed5c0 100755
+--- a/gui/theme/common/portrait.xml
++++ b/gui/theme/common/portrait.xml
+@@ -2874,6 +2874,15 @@
+ 				<action function="page">usb_mount</action>
+ 			</button>
+ 
++			<button style="main_button_half_height">
++				<placement x="%indent%" y="%row21a_y%"/>
++				<text>{@select_storage_btn=Select Storage}</text>
++				<actions>
++					<action function="set">tw_back=mount</action>
++					<action function="overlay">select_storage</action>
++				</actions>
++			</button>
++
+ 			<button style="main_button_half_height">
+ 				<conditions>
+ 					<condition var1="tw_is_encrypted" var2="1"/>
+@@ -2888,15 +2897,6 @@
+ 				<action function="page">decrypt</action>
+ 			</button>
+ 
+-			<button style="main_button_half_height">
+-				<placement x="%indent%" y="%row21a_y%"/>
+-				<text>{@select_storage_btn=Select Storage}</text>
+-				<actions>
+-					<action function="set">tw_back=mount</action>
+-					<action function="overlay">select_storage</action>
+-				</actions>
+-			</button>
+-
+ 			<button style="main_button_half_height">
+ 				<conditions>
+ 					<condition var1="tw_has_mtp" var2="1"/>
