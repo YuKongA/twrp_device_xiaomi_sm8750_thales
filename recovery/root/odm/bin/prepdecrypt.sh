@@ -85,6 +85,32 @@ relink() {
 	fi
 }
 
+# KeyMint snapshots the OS/vendor version properties when it starts.  Start it
+# only after those properties have been read from the currently installed ROM.
+# Restarting keystore2 makes it negotiate with the freshly initialized HAL.
+start_crypto_services() {
+	# Boot version/patch are separate KeyMint rollback dimensions. Read them
+	# directly from the active stock boot image's AVB property descriptors so
+	# recovery keeps working across ROM updates without hardcoded patch levels.
+	boot_path="/dev/block/bootdevice/by-name/boot${suffix}"
+	if [ -e "$boot_path" ]; then
+		boot_osver=$(strings -n 2 "$boot_path" | awk '/com.android.build.boot.os_version/{getline; print; exit}')
+		boot_patch=$(strings -n 2 "$boot_path" | awk '/com.android.build.boot.security_patch/{getline; print; exit}')
+		if [ -n "$boot_osver" ]; then
+			$setprop_bin ro.bootimage.build.version.release "$boot_osver"
+			log_print 1 "Stock boot OS version: $boot_osver"
+		fi
+		if [ -n "$boot_patch" ]; then
+			$setprop_bin ro.bootimage.build.version.security_patch "$boot_patch"
+			log_print 1 "Stock boot security patch: $boot_patch"
+		fi
+	fi
+	start vendor.keymint-qti
+	stop keystore2
+	start keystore2
+	sleep 2
+}
+
 finish() {
 	if [ "$SETPATCH" = "true" ]; then
 		is_system_mounted=$(getprop $SCRIPTNAME.system_mounted)
@@ -102,6 +128,7 @@ finish() {
 			fi
 		fi
 	fi
+	start_crypto_services
 	setprop crypto.ready 1
 	log_print 1 "crypto.ready=$(getprop crypto.ready)"
 	log_print 1 "Script complete. Device ready for decryption."
@@ -125,6 +152,7 @@ finish_error() {
 			fi
 		fi
 	fi
+	start_crypto_services
 	setprop crypto.ready 1
 	log_print 0 "Script run incomplete. Device may not be ready for decryption."
 	exit 2
@@ -396,6 +424,18 @@ if [ "$sdkver" -ge 26 ]; then
 			log_print 2 "/s Build.prop does not exist! Trying /system_root..."
 			TEMPSYS=/system_root
 			temp_mount "$TEMPSYS" "system" "$syspath"
+		fi
+
+		# OPlus/ColorOS port ROMs publish their final cross-partition properties
+		# from my_manifest after the base vendor build.prop. Match Android's final
+		# property value instead of incorrectly retaining the older vendor SPL.
+		manifest_prop="$TEMPSYS/my_manifest/build.prop"
+		if [ -f "$manifest_prop" ]; then
+			manifest_vendor_patch=$(grep -i -m 1 'ro.vendor.build.security_patch=' "$manifest_prop" | cut -f2 -d'=' -s)
+			if [ -n "$manifest_vendor_patch" ]; then
+				$setprop_bin ro.vendor.build.security_patch "$manifest_vendor_patch"
+				log_print 1 "Manifest vendor security patch: $manifest_vendor_patch"
+			fi
 		fi
 
 		if [ -f "$TEMPSYS/$BUILDPROP" ]; then
