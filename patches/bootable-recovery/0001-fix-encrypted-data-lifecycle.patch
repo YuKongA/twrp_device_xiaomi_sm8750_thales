@@ -1,0 +1,290 @@
+diff --git a/gui/partitionlist.cpp b/gui/partitionlist.cpp
+index 75568b2..e9dd279 100755
+--- a/gui/partitionlist.cpp
++++ b/gui/partitionlist.cpp
+@@ -222,14 +222,22 @@ void GUIPartitionList::NotifySelect(size_t item_selected)
+ 	if (item_selected < mList.size()) {
+ 		int listSize = mList.size();
+ 		if (ListType == "mount") {
++			TWPartition* selected_part =
++				PartitionManager.Find_Partition_By_Path(mList.at(item_selected).Mount_Point);
+ 			if (!mList.at(item_selected).selected) {
+-				if (PartitionManager.Mount_By_Path(mList.at(item_selected).Mount_Point, true)) {
++				bool mounted = selected_part && selected_part->Mount_Point == "/data" &&
++					selected_part->Is_Decrypted ? PartitionManager.Mount_Decrypted_Data() :
++					PartitionManager.Mount_By_Path(mList.at(item_selected).Mount_Point, true);
++				if (mounted) {
+ 					mList.at(item_selected).selected = 1;
+ 					PartitionManager.Add_MTP_Storage(mList.at(item_selected).Mount_Point);
+ 					mUpdate = 1;
+ 				}
+ 			} else {
+-				if (PartitionManager.UnMount_By_Path(mList.at(item_selected).Mount_Point, true)) {
++				bool unmounted = selected_part && selected_part->Mount_Point == "/data" &&
++					selected_part->Is_Decrypted ? PartitionManager.UnMount_Decrypted_Data() :
++					PartitionManager.UnMount_By_Path(mList.at(item_selected).Mount_Point, true);
++				if (unmounted) {
+ 					mList.at(item_selected).selected = 0;
+ 					mUpdate = 1;
+ 				}
+diff --git a/mtp/ffs/MtpServer.cpp b/mtp/ffs/MtpServer.cpp
+index 2a9e305..644fada 100755
+--- a/mtp/ffs/MtpServer.cpp
++++ b/mtp/ffs/MtpServer.cpp
+@@ -145,6 +145,7 @@ void MtpServer::removeStorage(MtpStorage* storage) {
+ 	if (iter != mStorages.end()) {
+ 		sendStoreRemoved(storage->getStorageID());
+ 		mStorages.erase(iter);
++		mDatabase->destroyDB(storage->getStorageID());
+ 	}
+ }
+ 
+diff --git a/partition.cpp b/partition.cpp
+index 69f7cb4..96cc2a6 100755
+--- a/partition.cpp
++++ b/partition.cpp
+@@ -1792,7 +1792,11 @@ bool TWPartition::UnMount(bool Display_Error, int flags) {
+ 		if (!Symlink_Mount_Point.empty())
+ 			umount2(Symlink_Mount_Point.c_str(), flags);
+ 
+-		umount2(Mount_Point.c_str(), flags);
++		int unmount_result = umount2(Mount_Point.c_str(), flags);
++		for (int retry = 0; unmount_result != 0 && errno == EBUSY && retry < 500; retry++) {
++			usleep(10000);
++			unmount_result = umount2(Mount_Point.c_str(), flags);
++		}
+ 		if (Is_Mounted()) {
+ 			if (Display_Error)
+ 				gui_msg(Msg(msg::kError, "fail_unmount=Failed to unmount '{1}' ({2})")(Mount_Point)(strerror(errno)));
+@@ -2200,6 +2204,7 @@ bool TWPartition::Decrypt(string Password) {
+ bool TWPartition::Wipe_Encryption() {
+ 	bool Save_Data_Media = Has_Data_Media;
+ 	bool ret = false;
++	bool wiped = false;
+ 	BasePartition* base_partition = make_partition();
+ 
+ 	if (!base_partition->PreWipeEncryption())
+@@ -2215,6 +2220,25 @@ bool TWPartition::Wipe_Encryption() {
+ #ifdef TW_INCLUDE_CRYPTO
+ 	if (!UnMount(true))
+ 		return false;
++	// Metadata encryption maps userdata through device-mapper. The raw
++	// userdata block device cannot be reformatted reliably while that mapping
++	// still exists, so tear it down before switching back to the raw device.
++	if (Mount_Point == "/data" &&
++		TWFunc::Path_Exists("/dev/block/mapper/userdata")) {
++		LOGINFO("Removing metadata-encryption userdata mapping before format.\n");
++		if (TWFunc::Exec_Cmd("dmctl delete userdata", false) != 0) {
++			LOGERR("Unable to remove metadata-encryption userdata mapping.\n");
++			return false;
++		}
++		for (int retry = 0;
++			 retry < 100 && TWFunc::Path_Exists("/dev/block/mapper/userdata");
++			 retry++)
++			usleep(10000);
++		if (TWFunc::Path_Exists("/dev/block/mapper/userdata")) {
++			LOGERR("userdata mapping did not disappear before format.\n");
++			return false;
++		}
++	}
+ 	if (Is_Decrypted && !Decrypted_Block_Device.empty()) {
+ //		if (delete_crypto_blk_dev((char*)("userdata")) != 0) {
+ //			LOGERR("Error deleting crypto block device, continuing anyway.\n");
+@@ -2225,7 +2249,11 @@ bool TWPartition::Wipe_Encryption() {
+ 	Decrypted_Block_Device = "";
+ 	Is_Decrypted = false;
+ 	Is_Encrypted = false;
+-	if (Wipe(Fstab_File_System)) {
++	// Format Data always recreates the raw userdata filesystem. Do not route
++	// this through generic Wipe(), whose data/media and rm-rf branches may try
++	// to mount the now-unmapped raw metadata-encrypted device.
++	wiped = Mount_Point == "/data" ? Wipe_F2FS() : Wipe(Fstab_File_System);
++	if (wiped) {
+ 		Has_Data_Media = Save_Data_Media;
+ 		DataManager::SetValue(TW_IS_ENCRYPTED, 0);
+ #ifndef TW_OEM_BUILD
+@@ -2566,6 +2594,7 @@ bool TWPartition::Wipe_F2FS() {
+ 	bool needs_casefold = false;
+ 
+ 	Find_Actual_Block_Device();
++	LOGINFO("Wipe_F2FS raw block device: %s\n", Actual_Block_Device.c_str());
+ 	if (!Is_Present) {
+ 		LOGINFO("Block device not present, cannot wipe %s.\n", Display_Name.c_str());
+ 		gui_msg(Msg(msg::kError, "unable_to_wipe=Unable to wipe {1}.")(Display_Name));
+@@ -2577,6 +2606,7 @@ bool TWPartition::Wipe_F2FS() {
+ 	}
+ 
+ 	unsigned long long dev_sz = TWFunc::IOCTL_Get_Block_Size(Actual_Block_Device.c_str());
++	LOGINFO("Wipe_F2FS block size: %llu bytes\n", dev_sz);
+ 	if (!dev_sz)
+ 		return false;
+ 
+diff --git a/partitionmanager.cpp b/partitionmanager.cpp
+index c47459f..7d17e24 100755
+--- a/partitionmanager.cpp
++++ b/partitionmanager.cpp
+@@ -103,10 +103,10 @@ extern "C" {
+ #include "gui/pages.hpp"
+ #ifdef TW_INCLUDE_FBE
+ #include "Decrypt.h"
++#include "FsCrypt.h"
+ #ifdef TW_INCLUDE_FBE_METADATA_DECRYPT
+ 	#ifdef USE_FSCRYPT
+ 	#include "cryptfs.h"
+-	#include "fscrypt-common.h"
+ 	#include "MetadataCrypt.h"
+ 	#endif
+ #endif
+@@ -2062,11 +2062,15 @@ void TWPartitionManager::Post_Decrypt(const string& Block_Device) {
+ 
+ void TWPartitionManager::Parse_Users() {
+ #ifdef TW_INCLUDE_FBE
++	Users_List.clear();
+ 	char user_check_result[PROPERTY_VALUE_MAX];
+ 	for (int userId = 0; userId <= 9999; userId++) {
+ 		string prop = "twrp.user." + to_string(userId) + ".decrypt";
+ 		property_get(prop.c_str(), user_check_result, "-1");
+ 		if (strcmp(user_check_result, "-1") != 0) {
++			// ColorOS sandbox/clone service profiles, not interactive users.
++			if (userId >= 995 && userId <= 999)
++				continue;
+ 			if (userId < 0 || userId > 9999) {
+ 				LOGINFO("Incorrect user id %d\n", userId);
+ 				continue;
+@@ -2263,6 +2267,66 @@ int TWPartitionManager::Decrypt_Device(string Password, int user_id) {
+ 	return 1;
+ }
+ 
++bool TWPartitionManager::Mount_Decrypted_Data() {
++#ifdef TW_INCLUDE_FBE
++	TWPartition* dat = Find_Partition_By_Path("/data");
++	std::vector<int> decrypted_users;
++	if (!dat)
++		return false;
++	for (const auto& user : Users_List) {
++		if (user.isDecrypted)
++			decrypted_users.push_back(atoi(user.userId.c_str()));
++	}
++	if (!dat->Mount(true))
++		return false;
++	if (!dat->Is_FBE || !dat->Is_Decrypted)
++		return true;
++
++	// A fresh F2FS mount has a fresh fscrypt keyring. Reinstall both the
++	// device-encrypted and credential-encrypted keys that were present before
++	// the user explicitly unmounted Data from the mount page.
++	if (!dat->Decrypt_FBE_DE()) {
++		LOGERR("Unable to reinstall Data DE keys after remount.\n");
++		return false;
++	}
++	for (int user_id : decrypted_users) {
++		if (!android::keystore::Reinstall_User_Key(user_id)) {
++			LOGERR("Unable to reinstall Data key for user %d after remount.\n",
++				user_id);
++			return false;
++		}
++		Mark_User_Decrypted(user_id);
++	}
++	dat->Is_Decrypted = true;
++	DataManager::SetValue(TW_IS_DECRYPTED, 1);
++	property_set("twrp.decrypt.done", "true");
++	return true;
++#else
++	return Mount_By_Path("/data", true);
++#endif
++}
++
++bool TWPartitionManager::UnMount_Decrypted_Data() {
++#ifdef TW_INCLUDE_FBE
++	TWPartition* dat = Find_Partition_By_Path("/data");
++	if (!dat)
++		return false;
++	if (!dat->UnMount(true))
++		return false;
++	for (const auto& user : Users_List) {
++		if (user.isDecrypted &&
++			!fscrypt_lock_ce_storage(atoi(user.userId.c_str()))) {
++			LOGERR("Unable to evict cached CE key for user %s before unmount.\n",
++				user.userId.c_str());
++			return false;
++		}
++	}
++	return true;
++#else
++	return UnMount_By_Path("/data", true);
++#endif
++}
++
+ int TWPartitionManager::Fix_Contexts(void) {
+ 	std::vector<TWPartition*>::iterator iter;
+ 	for (iter = Partitions.begin(); iter != Partitions.end(); iter++) {
+@@ -3763,6 +3827,19 @@ void TWPartitionManager::Unlock_Block_Partitions() {
+ 
+ bool TWPartitionManager::Unmap_Super_Devices() {
+ 	bool destroyed = false;
++	auto destroy_if_mapped = [](const std::string& name) {
++		const std::string mapper_path = "/dev/block/mapper/" + name;
++		struct stat st;
++		if (lstat(mapper_path.c_str(), &st) != 0) {
++			if (errno == ENOENT) {
++				LOGINFO("dynamic partition %s is already unmapped\n", name.c_str());
++				return true;
++			}
++			LOGERR("Unable to inspect dynamic partition %s: %s\n", name.c_str(), strerror(errno));
++			return false;
++		}
++		return DestroyLogicalPartition(name);
++	};
+ #ifndef TW_EXCLUDE_APEX
+ 	twrpApex apex;
+ 	apex.Unmount();
+@@ -3777,13 +3854,13 @@ bool TWPartitionManager::Unmap_Super_Devices() {
+ 				blk_device_partition.append(PartitionManager.Get_Active_Slot_Suffix());
+ 			(*iter)->UnMount(false);
+ 			LOGINFO("removing dynamic partition: %s\n", blk_device_partition.c_str());
+-			destroyed = DestroyLogicalPartition(blk_device_partition);
++			destroyed = destroy_if_mapped(blk_device_partition);
+ 			std::string cow_partition = blk_device_partition + "-cow";
+ 			std::string cow_partition_path = "/dev/block/mapper/" + cow_partition;
+ 			struct stat st;
+ 			if (lstat(cow_partition_path.c_str(), &st) == 0) {
+ 				LOGINFO("removing cow partition: %s\n", cow_partition.c_str());
+-				destroyed = DestroyLogicalPartition(cow_partition);
++				destroyed = destroy_if_mapped(cow_partition);
+ 			}
+ 			iter = Partitions.erase(iter);
+ 			delete part;
+@@ -3804,7 +3881,7 @@ bool TWPartitionManager::Unmap_Super_Devices() {
+ 				std::string partition = de->d_name;
+ 				if (strcmp(partition.c_str(),"userdata") != 0){
+ 					LOGINFO("removing dynamic partition: %s\n", partition.c_str());
+-					destroyed = DestroyLogicalPartition(partition);
++					destroyed = destroy_if_mapped(partition);
+ 					if (!destroyed) {
+ 						closedir(d);
+ 						return false;
+@@ -3825,11 +3902,6 @@ bool TWPartitionManager::Check_Pending_Merges() {
+ 		return false;
+ 	}
+ 
+-	if (!Unmap_Super_Devices()) {
+-		LOGERR("Unable to unmap dynamic partitions.\n");
+-		return false;
+-	}
+-
+ 	auto callback = [&]() -> void {
+ 		double progress;
+ 		sm->GetUpdateState(&progress);
+diff --git a/partitions.hpp b/partitions.hpp
+index 8cc49d4..227b46b 100755
+--- a/partitions.hpp
++++ b/partitions.hpp
+@@ -354,6 +354,8 @@ public:
+ 	int Resize_By_Path(string Path, bool Display_Error);                      // Resizes a partition based on path
+ 	void Update_System_Details();                                             // Updates fstab, file systems, sizes, etc.
+ 	int Decrypt_Device(string Password, int user_id = 0);                     // Attempt to decrypt any encrypted partitions
++	bool Mount_Decrypted_Data();                                              // Remount FBE data and reinstall its user keys
++	bool UnMount_Decrypted_Data();                                            // Evict cached FBE user keys, then unmount data
+ 	void Parse_Users();                                                       // Parse FBE users
+ 	int usb_storage_enable(void);                                             // Enable USB storage mode
+ 	int usb_storage_disable(void);                                            // Disable USB storage mode
