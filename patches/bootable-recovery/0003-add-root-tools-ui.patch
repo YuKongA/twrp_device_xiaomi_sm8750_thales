@@ -1,0 +1,591 @@
+diff --git a/gui/theme/common/languages/cz.xml b/gui/theme/common/languages/cz.xml
+index 0d28a9f..70b4533 100644
+--- a/gui/theme/common/languages/cz.xml
++++ b/gui/theme/common/languages/cz.xml
+@@ -772,5 +772,19 @@
+ 		<string name="restore_with_pin_password1">PIN/heslo je povoleno</string>
+ 		<string name="restore_with_pin_password2">PIN/heslo by mělo být před obnovením vypnuto</string>
+ 		<string name="reboot_after_restore">Po prvním spuštění se doporučuje jednou restartovat Android.</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/de.xml b/gui/theme/common/languages/de.xml
+index 7ba8d4e..a9e31be 100644
+--- a/gui/theme/common/languages/de.xml
++++ b/gui/theme/common/languages/de.xml
+@@ -715,5 +715,19 @@
+ 		<string name="flash_ab_reboot">Um weitere ZIP-Dateien einzuspielen bitte das Recovery neustartet um auf den geänderten Slot zu wechseln.</string>
+ 		<string name="ozip_decrypt_decryption">Starte Ozip Entschlüsselung...</string>
+ 		<string name="ozip_decrypt_finish">Ozip Entschlüsselung abgeschlossen!</string>
++		<string name="root_tools">Root-Werkzeuge</string>
++		<string name="root_tools_choose">Eine Root-Lösung auswählen</string>
++		<string name="install_kernelsu">KernelSU (LKM) installieren</string>
++		<string name="install_kernelsu_confirm">KernelSU in das aktive init_boot installieren?</string>
++		<string name="root_tools_backup_note">Das Originalabbild wird zuerst gesichert.</string>
++		<string name="installing_kernelsu">KernelSU wird installiert...</string>
++		<string name="install_kernelsu_complete">KernelSU-Installation abgeschlossen</string>
++		<string name="install_magisk">Magisk installieren</string>
++		<string name="install_magisk_confirm">Magisk im aktiven Slot installieren?</string>
++		<string name="installing_magisk">Magisk wird installiert...</string>
++		<string name="install_magisk_complete">Magisk-Installation abgeschlossen</string>
++		<string name="root_tools_warning">KernelSU und Magisk nicht zusammen installieren.</string>
++		<string name="flash_kernelsu_version">KernelSU v3.2.5 flashen</string>
++		<string name="flash_magisk_version">Magisk v30.7 flashen</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/el.xml b/gui/theme/common/languages/el.xml
+index 79b6ecb..7240c02 100644
+--- a/gui/theme/common/languages/el.xml
++++ b/gui/theme/common/languages/el.xml
+@@ -647,5 +647,19 @@
+         <string name="partition_not_found">διαδρομή: {1} δεν βρέθηκε στην λίστα τομέων</string>
+         <string name="copy_kernel_log">Το log του kernel αντιγράφηκε στο {1}</string>
+         <string name="include_kernel_log">Εισαγωγή Kernel Log</string>
+-    </resources>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
++	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/en.xml b/gui/theme/common/languages/en.xml
+index 7918231..a458732 100755
+--- a/gui/theme/common/languages/en.xml
++++ b/gui/theme/common/languages/en.xml
+@@ -795,5 +795,19 @@
+ 		<string name="wlan_start_service_btn">Start Service</string>
+ 		<string name="select_wlan_hdr">Select WLAN to Connect</string>
+ 		<string name="next_btn">Next</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/es.xml b/gui/theme/common/languages/es.xml
+index 744d7e7..a05ff56 100644
+--- a/gui/theme/common/languages/es.xml
++++ b/gui/theme/common/languages/es.xml
+@@ -627,5 +627,19 @@
+ 		<string name="theme_ver_err">Tema personalizado no coincide con la versión de TWRP. Usando tema stock.</string>
+ 		<string name="up_a_level">(Subir Un Nivel)</string>
+ 		<string name="install_reboot">Reiniciando en 5 segundos</string>
++		<string name="root_tools">Herramientas root</string>
++		<string name="root_tools_choose">Elige una solución root</string>
++		<string name="install_kernelsu">Instalar KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">¿Instalar KernelSU en init_boot activo?</string>
++		<string name="root_tools_backup_note">Primero se creará una copia de la imagen original.</string>
++		<string name="installing_kernelsu">Instalando KernelSU...</string>
++		<string name="install_kernelsu_complete">Instalación de KernelSU completada</string>
++		<string name="install_magisk">Instalar Magisk</string>
++		<string name="install_magisk_confirm">¿Instalar Magisk en la ranura activa?</string>
++		<string name="installing_magisk">Instalando Magisk...</string>
++		<string name="install_magisk_complete">Instalación de Magisk completada</string>
++		<string name="root_tools_warning">No instales KernelSU y Magisk juntos.</string>
++		<string name="flash_kernelsu_version">Flashear KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flashear Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/fr.xml b/gui/theme/common/languages/fr.xml
+index 402ce88..e8f4c59 100644
+--- a/gui/theme/common/languages/fr.xml
++++ b/gui/theme/common/languages/fr.xml
+@@ -624,5 +624,19 @@
+         <string name="no_real_sdcard">Cet appareil n'a pas une vraie carte SD! Abandon!</string>
+         <string name="cancel_sideload">Annulation du transfert par ADB...</string>
+         <string name="change_fs_err">Erreur lors du changement du système de fichier.</string>
+-    </resources>
++		<string name="root_tools">Outils root</string>
++		<string name="root_tools_choose">Choisissez une solution root</string>
++		<string name="install_kernelsu">Installer KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Installer KernelSU dans init_boot actif ?</string>
++		<string name="root_tools_backup_note">L’image d’origine sera d’abord sauvegardée.</string>
++		<string name="installing_kernelsu">Installation de KernelSU...</string>
++		<string name="install_kernelsu_complete">Installation de KernelSU terminée</string>
++		<string name="install_magisk">Installer Magisk</string>
++		<string name="install_magisk_confirm">Installer Magisk dans l’emplacement actif ?</string>
++		<string name="installing_magisk">Installation de Magisk...</string>
++		<string name="install_magisk_complete">Installation de Magisk terminée</string>
++		<string name="root_tools_warning">N’installez pas KernelSU et Magisk ensemble.</string>
++		<string name="flash_kernelsu_version">Flasher KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flasher Magisk v30.7</string>
++	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/hu.xml b/gui/theme/common/languages/hu.xml
+index 062c04a..9842b80 100644
+--- a/gui/theme/common/languages/hu.xml
++++ b/gui/theme/common/languages/hu.xml
+@@ -664,5 +664,19 @@
+ 		<string name="copy_kernel_log">Kernel log másolva: {1}</string>
+ 		<string name="include_kernel_log">Emellett Kernel Log másolása</string>
+ 		<string name="unable_set_boot_slot">Hiba a boot slot váltása során erre: {1}</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/id.xml b/gui/theme/common/languages/id.xml
+index db1a3be..d3a2634 100755
+--- a/gui/theme/common/languages/id.xml
++++ b/gui/theme/common/languages/id.xml
+@@ -737,5 +737,19 @@
+ 		<string name="change_twrp_folder_on_process">Mengubah folder TWRP</string>
+ 		<string name="change_twrp_folder_after_process">Folder TWRP diubah ke</string>
+ 		<string name="tw_folder_exists">Nama folder sudah ada!</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/it.xml b/gui/theme/common/languages/it.xml
+index f36f6fd..a44af42 100644
+--- a/gui/theme/common/languages/it.xml
++++ b/gui/theme/common/languages/it.xml
+@@ -664,5 +664,19 @@
+ 		<string name="copy_kernel_log">Log del kernel copiato in {1}</string>
+ 		<string name="include_kernel_log">Includi Log del Kernel</string>
+ 		<string name="unable_set_boot_slot">Errore nel cambio slot d'avvio del bootloader in {1}</string>
++		<string name="root_tools">Strumenti root</string>
++		<string name="root_tools_choose">Scegli una soluzione root</string>
++		<string name="install_kernelsu">Installa KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Installare KernelSU nell’init_boot attivo?</string>
++		<string name="root_tools_backup_note">Prima verrà eseguito il backup dell’immagine originale.</string>
++		<string name="installing_kernelsu">Installazione di KernelSU...</string>
++		<string name="install_kernelsu_complete">Installazione di KernelSU completata</string>
++		<string name="install_magisk">Installa Magisk</string>
++		<string name="install_magisk_confirm">Installare Magisk nello slot attivo?</string>
++		<string name="installing_magisk">Installazione di Magisk...</string>
++		<string name="install_magisk_complete">Installazione di Magisk completata</string>
++		<string name="root_tools_warning">Non installare KernelSU e Magisk insieme.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/nl.xml b/gui/theme/common/languages/nl.xml
+index 708bc23..297cf4e 100644
+--- a/gui/theme/common/languages/nl.xml
++++ b/gui/theme/common/languages/nl.xml
+@@ -735,5 +735,19 @@
+ 		<string name="change_twrp_folder_on_process">TWRP-map wordt gewijzigd</string>
+ 		<string name="change_twrp_folder_after_process">TWRP-map gewijzigd in</string>
+ 		<string name="tw_folder_exists">Er bestaat al een map met die naam!</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/pl.xml b/gui/theme/common/languages/pl.xml
+index fc5160f..4866991 100644
+--- a/gui/theme/common/languages/pl.xml
++++ b/gui/theme/common/languages/pl.xml
+@@ -773,5 +773,19 @@
+ 		<string name="restore_with_pattern1">Wzór jest włączony</string>
+ 		<string name="restore_with_pattern2">Wzór powinien być wyłączony przed rozpoczęciem przywracania</string>
+ 		<string name="reboot_after_restore">Po pierwszym uruchomieniu Androida zaleca się jednorazowo ponownie uruchomić urządzenie.</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/pt_BR.xml b/gui/theme/common/languages/pt_BR.xml
+index 75fd616..db28d65 100644
+--- a/gui/theme/common/languages/pt_BR.xml
++++ b/gui/theme/common/languages/pt_BR.xml
+@@ -612,5 +612,19 @@
+ 		<string name="cancel_sideload">Cancelamento de sideload ADB...</string>
+ 		<string name="change_fs_err">Sistema de arquivo erro em mudança.</string>
+ 		<string name="theme_ver_err">Versão personalizada do tema não coincide com a versão TWRP. Usando o tema conservado em estoque.</string>
++		<string name="root_tools">Ferramentas root</string>
++		<string name="root_tools_choose">Escolha uma solução root</string>
++		<string name="install_kernelsu">Instalar KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Instalar KernelSU no init_boot ativo?</string>
++		<string name="root_tools_backup_note">A imagem original será salva primeiro.</string>
++		<string name="installing_kernelsu">Instalando KernelSU...</string>
++		<string name="install_kernelsu_complete">Instalação do KernelSU concluída</string>
++		<string name="install_magisk">Instalar Magisk</string>
++		<string name="install_magisk_confirm">Instalar Magisk no slot ativo?</string>
++		<string name="installing_magisk">Instalando Magisk...</string>
++		<string name="install_magisk_complete">Instalação do Magisk concluída</string>
++		<string name="root_tools_warning">Não instale KernelSU e Magisk juntos.</string>
++		<string name="flash_kernelsu_version">Instalar KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Instalar Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/pt_PT.xml b/gui/theme/common/languages/pt_PT.xml
+index 301f1ce..d0c7ad2 100644
+--- a/gui/theme/common/languages/pt_PT.xml
++++ b/gui/theme/common/languages/pt_PT.xml
+@@ -698,5 +698,19 @@
+ 		<string name="include_kernel_log">Incluir log do Kernel</string>
+ 		<string name="sha2_chk">Usar SHA2 para fazer hash</string>
+ 		<string name="unable_set_boot_slot">Erro ao alterar o slot do bootloader para {1}</string>
++		<string name="root_tools">Ferramentas root</string>
++		<string name="root_tools_choose">Escolha uma solução root</string>
++		<string name="install_kernelsu">Instalar KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Instalar KernelSU no init_boot ativo?</string>
++		<string name="root_tools_backup_note">A imagem original será guardada primeiro.</string>
++		<string name="installing_kernelsu">A instalar KernelSU...</string>
++		<string name="install_kernelsu_complete">Instalação do KernelSU concluída</string>
++		<string name="install_magisk">Instalar Magisk</string>
++		<string name="install_magisk_confirm">Instalar Magisk no slot ativo?</string>
++		<string name="installing_magisk">A instalar Magisk...</string>
++		<string name="install_magisk_complete">Instalação do Magisk concluída</string>
++		<string name="root_tools_warning">Não instale KernelSU e Magisk em conjunto.</string>
++		<string name="flash_kernelsu_version">Instalar KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Instalar Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/ru.xml b/gui/theme/common/languages/ru.xml
+index fd9663a..cc7f026 100644
+--- a/gui/theme/common/languages/ru.xml
++++ b/gui/theme/common/languages/ru.xml
+@@ -741,5 +741,19 @@
+ 		<string name="change_twrp_folder_on_process">Смена папки TWRP</string>
+ 		<string name="change_twrp_folder_after_process">Папка TWRP изменена на</string>
+ 		<string name="tw_folder_exists">Папка с таким именем уже существует!</string>
++		<string name="root_tools">Root-инструменты</string>
++		<string name="root_tools_choose">Выберите одно root-решение</string>
++		<string name="install_kernelsu">Установить KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Установить KernelSU в активный init_boot?</string>
++		<string name="root_tools_backup_note">Сначала будет создана копия исходного образа.</string>
++		<string name="installing_kernelsu">Установка KernelSU...</string>
++		<string name="install_kernelsu_complete">Установка KernelSU завершена</string>
++		<string name="install_magisk">Установить Magisk</string>
++		<string name="install_magisk_confirm">Установить Magisk в активный слот?</string>
++		<string name="installing_magisk">Установка Magisk...</string>
++		<string name="install_magisk_complete">Установка Magisk завершена</string>
++		<string name="root_tools_warning">Не устанавливайте KernelSU и Magisk вместе.</string>
++		<string name="flash_kernelsu_version">Прошить KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Прошить Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/sk.xml b/gui/theme/common/languages/sk.xml
+index 8e4b1f5..d803fca 100644
+--- a/gui/theme/common/languages/sk.xml
++++ b/gui/theme/common/languages/sk.xml
+@@ -612,5 +612,19 @@
+ 		<string name="cancel_sideload">Rušenie ADB sideload...</string>
+ 		<string name="change_fs_err">Chyba pri zmene súborového systému.</string>
+ 		<string name="theme_ver_err">Vlastná téma sa nezhoduje s verziou TWRP. Používa sa originál téma.</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/sl.xml b/gui/theme/common/languages/sl.xml
+index 0e0f695..f92475a 100644
+--- a/gui/theme/common/languages/sl.xml
++++ b/gui/theme/common/languages/sl.xml
+@@ -772,5 +772,19 @@
+ 		<string name="restore_with_pattern1">Vzorec je omogočen.</string>
+ 		<string name="restore_with_pattern2">Pred obnovitvijo onemogočite vzorec.</string>
+ 		<string name="reboot_after_restore">Po prvem zagonu je priporočljivo ponovno zagnati Android.</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/sv.xml b/gui/theme/common/languages/sv.xml
+index 372f29e..44f862d 100644
+--- a/gui/theme/common/languages/sv.xml
++++ b/gui/theme/common/languages/sv.xml
+@@ -194,5 +194,19 @@
+ 		<string name="config_twrp">Konfigurerar TWRP...</string>
+ 		<string name="auto_gen">(Auto-generera)</string>
+ 		<string name="curr_date">(Dagens datum)</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/tr.xml b/gui/theme/common/languages/tr.xml
+index eec5616..ec0ab0a 100644
+--- a/gui/theme/common/languages/tr.xml
++++ b/gui/theme/common/languages/tr.xml
+@@ -666,5 +666,19 @@
+ 		<string name="include_kernel_log">Kernel Kaydını Dahil Et</string>
+ 		<string name="sha2_chk">Hash için SHA2 kullan</string>
+ 		<string name="unable_set_boot_slot">Önyükleyici önyükleme yuvasını {1} olarak değiştiremiyor</string>
++		<string name="root_tools">Root araçları</string>
++		<string name="root_tools_choose">Bir root çözümü seçin</string>
++		<string name="install_kernelsu">KernelSU (LKM) yükle</string>
++		<string name="install_kernelsu_confirm">KernelSU etkin init_boot bölümüne yüklensin mi?</string>
++		<string name="root_tools_backup_note">Önce özgün imaj yedeklenecek.</string>
++		<string name="installing_kernelsu">KernelSU yükleniyor...</string>
++		<string name="install_kernelsu_complete">KernelSU yüklemesi tamamlandı</string>
++		<string name="install_magisk">Magisk yükle</string>
++		<string name="install_magisk_confirm">Magisk etkin yuvaya yüklensin mi?</string>
++		<string name="installing_magisk">Magisk yükleniyor...</string>
++		<string name="install_magisk_complete">Magisk yüklemesi tamamlandı</string>
++		<string name="root_tools_warning">KernelSU ve Magisk'i birlikte yüklemeyin.</string>
++		<string name="flash_kernelsu_version">KernelSU v3.2.5 flaşla</string>
++		<string name="flash_magisk_version">Magisk v30.7 flaşla</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/languages/uk.xml b/gui/theme/common/languages/uk.xml
+index e6982fe..c1699c0 100644
+--- a/gui/theme/common/languages/uk.xml
++++ b/gui/theme/common/languages/uk.xml
+@@ -642,5 +642,19 @@
+ 		<string name="partition_not_found">шлях: {1} не знайдено у списку розділів</string>
+ 		<string name="copy_kernel_log">Копіювання kernel log у {1}</string>
+ 		<string name="include_kernel_log">Увімкнути Kernel Log</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/common/portrait.xml b/gui/theme/common/portrait.xml
+index 30b4df0..fb524a9 100755
+--- a/gui/theme/common/portrait.xml
++++ b/gui/theme/common/portrait.xml
+@@ -4063,6 +4063,32 @@
+ 
+ 			<listbox style="advanced_listbox">
+ 				<placement x="%indent%" y="%row12a_y%" w="%content_width%" h="%listbox_advanced_height%"/>
++				<listitem name="{@flash_kernelsu_version=Flash KernelSU v3.2.5}">
++					<actions>
++						<action function="set">tw_back=advanced</action>
++						<action function="set">tw_action=cmd</action>
++						<action function="set">tw_action_param=/system/bin/install-kernelsu</action>
++						<action function="set">tw_text1={@install_kernelsu_confirm=Install KernelSU to active init_boot?}</action>
++						<action function="set">tw_text2={@root_tools_backup_note=The original image will be backed up first.}</action>
++						<action function="set">tw_action_text1={@installing_kernelsu=Installing KernelSU...}</action>
++						<action function="set">tw_complete_text1={@install_kernelsu_complete=KernelSU installation complete}</action>
++						<action function="set">tw_slider_text={@swipe_to_confirm=Swipe to Confirm}</action>
++						<action function="page">confirm_action</action>
++					</actions>
++				</listitem>
++				<listitem name="{@flash_magisk_version=Flash Magisk v30.7}">
++					<actions>
++						<action function="set">tw_back=advanced</action>
++						<action function="set">tw_action=cmd</action>
++						<action function="set">tw_action_param=/system/bin/install-magisk</action>
++						<action function="set">tw_text1={@install_magisk_confirm=Install Magisk to the active slot?}</action>
++						<action function="set">tw_text2={@root_tools_backup_note=The original image will be backed up first.}</action>
++						<action function="set">tw_action_text1={@installing_magisk=Installing Magisk...}</action>
++						<action function="set">tw_complete_text1={@install_magisk_complete=Magisk installation complete}</action>
++						<action function="set">tw_slider_text={@swipe_to_confirm=Swipe to Confirm}</action>
++						<action function="page">confirm_action</action>
++					</actions>
++				</listitem>
+ 				<listitem name="{@change_twrp_folder_btn=Change TWRP folder}">
+ 					<condition var1="tw_is_decrypted" var2="1"/>
+ 					<action function="page">changeTwrpFolder</action>
+diff --git a/gui/theme/extra-languages/languages/ja.xml b/gui/theme/extra-languages/languages/ja.xml
+index 62e0955..1717acf 100644
+--- a/gui/theme/extra-languages/languages/ja.xml
++++ b/gui/theme/extra-languages/languages/ja.xml
+@@ -641,5 +641,19 @@
+ 		<string name="theme_ver_err">カスタムテーマのバージョンが TWRP のバージョンと一致しません。標準のテーマを使用します。</string>
+ 		<string name="up_a_level">(上の階層へ)</string>
+ 		<string name="install_reboot">5秒後に再起動します</string>
++		<string name="root_tools">Rootツール</string>
++		<string name="root_tools_choose">Root方式を1つ選択</string>
++		<string name="install_kernelsu">KernelSU (LKM)をインストール</string>
++		<string name="install_kernelsu_confirm">有効なinit_bootにKernelSUをインストールしますか？</string>
++		<string name="root_tools_backup_note">最初に元のイメージをバックアップします。</string>
++		<string name="installing_kernelsu">KernelSUをインストール中...</string>
++		<string name="install_kernelsu_complete">KernelSUのインストールが完了しました</string>
++		<string name="install_magisk">Magiskをインストール</string>
++		<string name="install_magisk_confirm">有効なスロットにMagiskをインストールしますか？</string>
++		<string name="installing_magisk">Magiskをインストール中...</string>
++		<string name="install_magisk_complete">Magiskのインストールが完了しました</string>
++		<string name="root_tools_warning">KernelSUとMagiskを同時にインストールしないでください。</string>
++		<string name="flash_kernelsu_version">KernelSU v3.2.5を書き込む</string>
++		<string name="flash_magisk_version">Magisk v30.7を書き込む</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/extra-languages/languages/lk.xml b/gui/theme/extra-languages/languages/lk.xml
+index 2948334..98c3130 100644
+--- a/gui/theme/extra-languages/languages/lk.xml
++++ b/gui/theme/extra-languages/languages/lk.xml
+@@ -770,5 +770,19 @@
+ 		<string name="restore_with_pattern1">Pattern එකක් දාලා</string>
+ 		<string name="restore_with_pattern2">restore කරන්න කලින් Pattern එක අයින් කරන්න ථන</string>
+ 		<string name="reboot_after_restore">First boot එකට පස්ෙස එක පාරක් Android එකට Reboot කරන එක ෙහාදයි.</string>
++		<string name="root_tools">Root Tools</string>
++		<string name="root_tools_choose">Choose one root solution</string>
++		<string name="install_kernelsu">Install KernelSU (LKM)</string>
++		<string name="install_kernelsu_confirm">Install KernelSU to active init_boot?</string>
++		<string name="root_tools_backup_note">The original image will be backed up first.</string>
++		<string name="installing_kernelsu">Installing KernelSU...</string>
++		<string name="install_kernelsu_complete">KernelSU installation complete</string>
++		<string name="install_magisk">Install Magisk</string>
++		<string name="install_magisk_confirm">Install Magisk to the active slot?</string>
++		<string name="installing_magisk">Installing Magisk...</string>
++		<string name="install_magisk_complete">Magisk installation complete</string>
++		<string name="root_tools_warning">Do not install KernelSU and Magisk together.</string>
++		<string name="flash_kernelsu_version">Flash KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">Flash Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/extra-languages/languages/zh_CN.xml b/gui/theme/extra-languages/languages/zh_CN.xml
+index 2363ed5..ecb6ac1 100644
+--- a/gui/theme/extra-languages/languages/zh_CN.xml
++++ b/gui/theme/extra-languages/languages/zh_CN.xml
+@@ -787,5 +787,19 @@
+ 		<string name="wlan_start_service_btn">启动服务</string>
+ 		<string name="select_wlan_hdr">选择需要连接的WiFi</string>
+ 		<string name="next_btn">下一步</string>
++		<string name="root_tools">Root 工具</string>
++		<string name="root_tools_choose">请选择一种 Root 方案</string>
++		<string name="install_kernelsu">安装 KernelSU（LKM）</string>
++		<string name="install_kernelsu_confirm">将 KernelSU 安装到当前槽的 init_boot？</string>
++		<string name="root_tools_backup_note">操作前会先备份原始镜像。</string>
++		<string name="installing_kernelsu">正在安装 KernelSU…</string>
++		<string name="install_kernelsu_complete">KernelSU 安装完成</string>
++		<string name="install_magisk">安装 Magisk</string>
++		<string name="install_magisk_confirm">将 Magisk 安装到当前槽？</string>
++		<string name="installing_magisk">正在安装 Magisk…</string>
++		<string name="install_magisk_complete">Magisk 安装完成</string>
++		<string name="root_tools_warning">请勿同时安装 KernelSU 和 Magisk。</string>
++		<string name="flash_kernelsu_version">刷入 KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">刷入 Magisk v30.7</string>
+ 	</resources>
+ </language>
+diff --git a/gui/theme/extra-languages/languages/zh_TW.xml b/gui/theme/extra-languages/languages/zh_TW.xml
+index ceff037..bb79d9b 100644
+--- a/gui/theme/extra-languages/languages/zh_TW.xml
++++ b/gui/theme/extra-languages/languages/zh_TW.xml
+@@ -796,5 +796,19 @@
+ 		<string name="wlan_start_service_btn">啟動服務</string>
+ 		<string name="select_wlan_hdr">選擇要連線的 WLAN</string>
+ 		<string name="next_btn">下一步</string>
++		<string name="root_tools">Root 工具</string>
++		<string name="root_tools_choose">請選擇一種 Root 方案</string>
++		<string name="install_kernelsu">安裝 KernelSU（LKM）</string>
++		<string name="install_kernelsu_confirm">將 KernelSU 安裝到目前槽位的 init_boot？</string>
++		<string name="root_tools_backup_note">操作前會先備份原始映像檔。</string>
++		<string name="installing_kernelsu">正在安裝 KernelSU…</string>
++		<string name="install_kernelsu_complete">KernelSU 安裝完成</string>
++		<string name="install_magisk">安裝 Magisk</string>
++		<string name="install_magisk_confirm">將 Magisk 安裝到目前槽位？</string>
++		<string name="installing_magisk">正在安裝 Magisk…</string>
++		<string name="install_magisk_complete">Magisk 安裝完成</string>
++		<string name="root_tools_warning">請勿同時安裝 KernelSU 與 Magisk。</string>
++		<string name="flash_kernelsu_version">刷入 KernelSU v3.2.5</string>
++		<string name="flash_magisk_version">刷入 Magisk v30.7</string>
+ 	</resources>
+ </language>
