@@ -1,7 +1,5 @@
-on init
-    start vendor.qseecomd
-
 service vendor.qseecomd /vendor/bin/qseecomd
+    disabled
     socket notify-topology stream 660 system drmrpc
     class core
     user root

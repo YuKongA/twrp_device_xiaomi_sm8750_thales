@@ -38,6 +38,11 @@ on early-fs
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    # qseecomd needs the SSD partition during listener initialization. Starting
+    # it from "on init" races ueventd/by-name creation, then leaves KeyMint in
+    # a timed-out state before metadata decryption begins.
+    wait /dev/block/bootdevice/by-name/ssd 10
+    start vendor.qseecomd
     write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
@@ -66,7 +71,7 @@ on property:twrp.modules.loaded=true
     start vendor.health-default
     umount /firmware
 
-on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
+on property:twrp.super.symlinks_created=true && property:ro.crypto.state=encrypted
     start odm.prepdecrypt
 
 on property:twrp.variant.files_copied=1
