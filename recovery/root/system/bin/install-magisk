@@ -1,0 +1,60 @@
+#!/system/bin/sh
+
+set -eu
+
+PACKAGE=/root-tools/Magisk.apk
+WORK=/tmp/magisk-install
+
+log() {
+    echo "Magisk: $*"
+    echo "I:Magisk installer: $*" >> /tmp/recovery.log
+}
+
+fail() {
+    log "ERROR: $*"
+    exit 1
+}
+
+[ -f "$PACKAGE" ] || fail "Missing Magisk package"
+
+suffix="$(getprop ro.boot.slot_suffix)"
+case "$suffix" in
+    _a|_b) ;;
+    *) fail "Cannot determine the active slot" ;;
+esac
+target="/dev/block/bootdevice/by-name/init_boot${suffix}"
+[ -b "$target" ] || fail "Missing active init_boot partition: $target"
+if grep -a -q -E 'kernelsu|ksud' "$target"; then
+    fail "The active init_boot is patched by KernelSU. Restore stock init_boot first."
+fi
+
+rm -rf "$WORK"
+mkdir -p "$WORK"
+
+log "Backing up active init_boot${suffix}"
+dd if="$target" of="$WORK/init_boot-stock.img" bs=4M 2>> /tmp/recovery.log || \
+    fail "Unable to read init_boot${suffix}"
+
+if mountpoint -q /data && [ -d /data/media/0 ]; then
+    backup_dir=/data/media/0/TWRP/RootBackups
+    mkdir -p "$backup_dir" /data/media/0/Download
+    cp "$WORK/init_boot-stock.img" "$backup_dir/init_boot${suffix}-before-magisk.img"
+    cp "$PACKAGE" /data/media/0/Download/Magisk-v30.7.apk 2>/dev/null || true
+    log "Backup saved to internal storage/TWRP/RootBackups"
+fi
+
+update_binary="$WORK/update-binary"
+unzip -p "$PACKAGE" META-INF/com/google/android/update-binary > "$update_binary" || \
+    fail "Unable to extract Magisk update-binary"
+chmod 0755 "$update_binary"
+
+log "Starting official Magisk v30.7 installer"
+status_file="$WORK/update-binary.status"
+(
+    set +e
+    /system/bin/sh "$update_binary" 3 1 "$PACKAGE"
+    echo "$?" > "$status_file"
+) 2>&1 | sed -e 's/^ui_print //' -e '/^ui_print$/d'
+[ -f "$status_file" ] || fail "Unable to obtain Magisk installer exit status"
+[ "$(cat "$status_file")" -eq 0 ] || fail "Magisk installer failed"
+log "Magisk v30.7 installed successfully"
