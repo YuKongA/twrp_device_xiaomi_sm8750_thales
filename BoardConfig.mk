@@ -89,10 +89,6 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600
 BOARD_SUPER_PARTITION_SIZE := 11811160064
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 11809841488
-# Keep system_dlkm in the dynamic list. It is a logical member of the super
-# group and must be unmounted before update_dynamic_partitions() removes it.
-# mi_ext is handled by the recovery fstab, but is not a supported super-image
-# partition for Soong and therefore must not be listed here.
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext product vendor vendor_dlkm odm system_dlkm
 
 # File systems
